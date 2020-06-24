@@ -2,7 +2,7 @@
 
 namespace SparkDrums.Data
 {
-    public class Class1
+    public class Product
     {
     }
 }
