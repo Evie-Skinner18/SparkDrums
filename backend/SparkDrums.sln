@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkDrums.Data", "SparkDrums.Data\SparkDrums.Data.csproj", "{E33302F7-9A15-4584-97D0-A71E186B6A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkDrums.Data", "SparkDrums.Data\SparkDrums.Data.csproj", "{E33302F7-9A15-4584-97D0-A71E186B6A9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkDrums.Services", "SparkDrums.Services\SparkDrums.Services.csproj", "{96D7BF04-7FF7-44E7-A7B5-17C6C5E5F558}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkDrums.Services", "SparkDrums.Services\SparkDrums.Services.csproj", "{96D7BF04-7FF7-44E7-A7B5-17C6C5E5F558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkDrums.Api", "SparkDrums.Api\SparkDrums.Api.csproj", "{6D5DE515-8AE8-4E2F-AFFE-85D4AFF1494F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkDrums.Api", "SparkDrums.Api\SparkDrums.Api.csproj", "{6D5DE515-8AE8-4E2F-AFFE-85D4AFF1494F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkDrums.Tests", "SparkDrums.Tests\SparkDrums.Tests.csproj", "{65CCAF3E-5C27-4B45-AC8E-CF5AEAE27831}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkDrums.Tests", "SparkDrums.Tests\SparkDrums.Tests.csproj", "{65CCAF3E-5C27-4B45-AC8E-CF5AEAE27831}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E33302F7-9A15-4584-97D0-A71E186B6A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +69,11 @@ Global
 		{65CCAF3E-5C27-4B45-AC8E-CF5AEAE27831}.Release|x64.Build.0 = Release|Any CPU
 		{65CCAF3E-5C27-4B45-AC8E-CF5AEAE27831}.Release|x86.ActiveCfg = Release|Any CPU
 		{65CCAF3E-5C27-4B45-AC8E-CF5AEAE27831}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BBF4A1D-F025-4446-8D63-ADECCFE16ACB}
 	EndGlobalSection
 EndGlobal

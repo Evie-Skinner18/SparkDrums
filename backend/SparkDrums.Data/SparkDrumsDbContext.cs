@@ -4,7 +4,7 @@ using SparkDrums.Data.Models;
 
 namespace SparkDrums.Data
 {
-    class SparkDrumsDbContext : IdentityDbContext
+    public class SparkDrumsDbContext : IdentityDbContext
     {
         public SparkDrumsDbContext() { }
 
