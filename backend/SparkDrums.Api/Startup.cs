@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using SparkDrums.Services.Products;
+using SparkDrums.Data.Readers.Products;
+using SparkDrums.Data.Writers.Products;
 
 namespace SparkDrums.Api
 {
@@ -55,9 +58,9 @@ namespace SparkDrums.Api
 
             // register dependencies in the IOC container. When I ask for IBookService, please use the BookService implementation
             // AddTransient means we want a simple, short-lived instance of a BookService when its behaviour is requested
-            //services.AddTransient<IBookService, BookService>();
-            //services.AddTransient<IBookDataReader, BookDataReader>();
-            //services.AddTransient<IBookDataWriter, BookDataWriter>();
+            services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IProductsReader, ProductsReader>();
+            services.AddTransient<IProductsWriter, ProductsWriter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

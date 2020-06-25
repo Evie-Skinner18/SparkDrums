@@ -1,4 +1,4 @@
-using SparkDrums.Data.Models;
+using SparkDrums.Data.Models.Products;
 
 
 namespace SparkDrums.Data.Writers.Products
@@ -22,6 +22,18 @@ namespace SparkDrums.Data.Writers.Products
         {
             _dbContext.Products.Remove(productToDelete);
             _dbContext.SaveChanges();
+        }
+
+        public void AddProductInventoryRecordToDb(ProductInventory productInventoryRecord)
+        {
+            _dbContext.ProductInventories.Add(productInventoryRecord);
+            _dbContext.SaveChanges();
+        }
+
+        // to-do: implement this
+        public void AddArchiveRecordToDb()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

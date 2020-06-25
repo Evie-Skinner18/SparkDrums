@@ -1,7 +1,8 @@
-﻿using System;
+﻿using SparkDrums.Data.Models.Customers;
+using System;
 using System.Collections.Generic;
 
-namespace SparkDrums.Data.Models
+namespace SparkDrums.Data.Models.Orders
 {
     public class SalesOrder
     {

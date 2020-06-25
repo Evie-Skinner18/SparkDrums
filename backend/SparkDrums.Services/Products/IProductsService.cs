@@ -1,16 +1,21 @@
-﻿using SparkDrums.Data.Models;
+﻿using EntityProducts = SparkDrums.Data.Models.Products;
+//using ServiceModels = SparkDrums.Services.Models;
 using System.Collections.Generic;
 
 namespace SparkDrums.Services.Products
 {
     public interface IProductsService
     {
-        IEnumerable<Product> GetAllProducts();
+        IEnumerable<EntityProducts.Product> GetAllProducts();
 
-        Product GetProductById(int id);
+        EntityProducts.Product GetProductById(int id);
 
-        void CreateProduct(Product productToAdd);
+        ServiceResponse<EntityProducts.Product> CreateProduct(EntityProducts.Product productToAdd);
 
-        void DeleteProduct(int id);
+        ServiceResponse<EntityProducts.Product> DeleteProduct(int id);
+
+        ServiceResponse<EntityProducts.Product> ArchiveProduct(int id);
+
+        void CreateProductInventoryRecord(EntityProducts.Product product);
     }
 }

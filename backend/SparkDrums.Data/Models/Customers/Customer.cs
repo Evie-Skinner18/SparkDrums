@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SparkDrums.Data.Models
+namespace SparkDrums.Data.Models.Customers
 {
     /*
      * Entity models:

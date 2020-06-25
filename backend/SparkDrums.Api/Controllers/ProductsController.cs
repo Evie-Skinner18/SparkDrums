@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
+using SparkDrums.Services.Products;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,11 +18,13 @@ namespace SparkDrums.Api.Controllers
             _productsService = productsService;
         }
 
+       
         [HttpGet("/api/products")]
         public ActionResult GetAllProducts()
         {
             _logger.LogInformation("Getting all products...");
-            return Ok();
+            var allProducts = _productsService.GetAllProducts();
+            return Ok(allProducts);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SparkDrums.Data.Models.Products;
 
-namespace SparkDrums.Data.Models
+namespace SparkDrums.Data.Models.Orders
 {
     public class SalesOrderItem
     {

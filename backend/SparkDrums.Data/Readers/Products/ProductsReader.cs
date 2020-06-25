@@ -1,4 +1,4 @@
-using SparkDrums.Data.Models;
+using SparkDrums.Data.Models.Products;
 using System.Collections.Generic;
 
 namespace SparkDrums.Data.Readers.Products

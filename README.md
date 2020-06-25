@@ -9,3 +9,10 @@
 - Postgresql
 
 - Vue
+
+- NUnit
+- Jest
+
+- Git
+- Bash
+- Make

@@ -1,5 +1,4 @@
-﻿using SparkDrums.Data.Models;
-
+﻿using SparkDrums.Data.Models.Products;
 
 namespace SparkDrums.Data.Writers.Products
 {
@@ -8,5 +7,9 @@ namespace SparkDrums.Data.Writers.Products
         void AddProductToDb(Product productToAdd);
 
         void DeleteProductFromDb(Product productToDelete);
+
+        void AddProductInventoryRecordToDb(ProductInventory productInventoryRecord);
+
+        void AddArchiveRecordToDb();
     }
 }

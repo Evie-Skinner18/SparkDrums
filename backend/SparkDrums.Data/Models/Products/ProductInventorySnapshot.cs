@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SparkDrums.Data.Models
+namespace SparkDrums.Data.Models.Products
 {
     // this will help us keep audit trail
     public class ProductInventorySnapshot

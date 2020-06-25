@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SparkDrums.Data.Models
+namespace SparkDrums.Data.Models.Customers
 {
     // making distinction because we might need business address aswell
     public class CustomerAddress

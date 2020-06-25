@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SparkDrums.Data.Models;
+using SparkDrums.Data.Models.Customers;
+using SparkDrums.Data.Models.Orders;
+using SparkDrums.Data.Models.Products;
 
 namespace SparkDrums.Data
 {
@@ -16,7 +18,7 @@ namespace SparkDrums.Data
 
         public virtual DbSet<Product> Products { get; set; }
 
-        public virtual DbSet<ProductInventory> ProductInventoriess { get; set; }
+        public virtual DbSet<ProductInventory> ProductInventories { get; set; }
 
         public virtual DbSet<ProductInventorySnapshot> ProductInventorySnapshots { get; set; }
 
