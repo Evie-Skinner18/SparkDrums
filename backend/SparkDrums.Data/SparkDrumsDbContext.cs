@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SparkDrums.Data.Models.Customers;
+using SparkDrums.Data.Models.Inventories;
 using SparkDrums.Data.Models.Orders;
 using SparkDrums.Data.Models.Products;
 

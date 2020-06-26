@@ -8,8 +8,6 @@ namespace SparkDrums.Data.Writers.Products
 
         void DeleteProductFromDb(Product productToDelete);
 
-        void AddProductInventoryRecordToDb(ProductInventory productInventoryRecord);
-
         void AddArchiveRecordToDb(Product product);
     }
 }

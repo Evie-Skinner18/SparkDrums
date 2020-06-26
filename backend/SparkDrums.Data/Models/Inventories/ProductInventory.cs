@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SparkDrums.Data.Models.Products
+namespace SparkDrums.Data.Models.Inventories
 {
     public class ProductInventory
     {

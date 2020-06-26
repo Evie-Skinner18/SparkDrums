@@ -1,4 +1,5 @@
 ﻿using EntityProducts = SparkDrums.Data.Models.Products;
+using EntityInventories = SparkDrums.Data.Models.Inventories;
 using ServiceProducts = SparkDrums.Services.Models.Products;
 using SparkDrums.Data.Readers.Products;
 using SparkDrums.Data.Writers.Products;
@@ -16,11 +17,14 @@ namespace SparkDrums.Services.Products
 
         private IProductsWriter _productsWriter { get; set; }
 
+        private IInventoriesWriter _inventoriesWriter { get; set; }
 
-        public ProductsService(IProductsReader productsReader, IProductsWriter productsWriter)
+
+        public ProductsService(IProductsReader productsReader, IProductsWriter productsWriter, IInventoriesWriter inventoriesWriter)
         {
             _productsReader = productsReader;
             _productsWriter = productsWriter;
+            _inventoriesWriter = inventoriesWriter;
         }
 
         public IEnumerable<ServiceProducts.Product> GetAllProducts()
@@ -118,13 +122,13 @@ namespace SparkDrums.Services.Products
         {
             try
             {
-                var productInventoryRecord = new EntityProducts.ProductInventory()
+                var productInventoryRecord = new EntityInventories.ProductInventory()
                 {
                     Product = product,
                     QuantityAvailable = 0,
                     IdealQuantity = 10
                 };
-                _productsWriter.AddProductInventoryRecordToDb(productInventoryRecord);
+                _inventoriesWriter.AddProductInventoryRecordToDb(productInventoryRecord);
             }
             catch (Exception)
             {
