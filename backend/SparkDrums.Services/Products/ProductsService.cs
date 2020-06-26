@@ -1,8 +1,11 @@
 ﻿using EntityProducts = SparkDrums.Data.Models.Products;
+using ServiceProducts = SparkDrums.Services.Models.Products;
 using SparkDrums.Data.Readers.Products;
 using SparkDrums.Data.Writers.Products;
 using System;
 using System.Collections.Generic;
+using SparkDrums.Services.Serialisation;
+using System.Linq;
 
 namespace SparkDrums.Services.Products
 {
@@ -20,10 +23,14 @@ namespace SparkDrums.Services.Products
             _productsWriter = productsWriter;
         }
 
-        public IEnumerable<EntityProducts.Product> GetAllProducts()
+        public IEnumerable<ServiceProducts.Product> GetAllProducts()
         {
-            var allProducts = _productsReader.GetAllProductsFromDb();
-            return allProducts;
+            var entityProducts = _productsReader.GetAllProductsFromDb();
+            var serviceProducts = entityProducts
+                .Select(p => ProductMapper
+                .SerialiseProduct(p));
+
+            return serviceProducts;
         }
 
         public EntityProducts.Product GetProductById(int id)
@@ -32,6 +39,7 @@ namespace SparkDrums.Services.Products
             return productWithGivenId;
         }
 
+        // these are quite repetitive. How can I improve? Uncle Bob would say separate your error handling from method's logic
         public ServiceResponse<EntityProducts.Product> CreateProduct(EntityProducts.Product productToAdd)
         {
             var response = new ServiceResponse<EntityProducts.Product>()
@@ -51,7 +59,7 @@ namespace SparkDrums.Services.Products
             catch (Exception e)
             {
                 response.IsSuccessful = false;
-                response.Message = ($"Could not add {productToAdd.Name}");
+                response.Message = ($"Could not add {productToAdd.Name}. Stack trace: {e.StackTrace}");
             }
 
             return response;
@@ -76,18 +84,34 @@ namespace SparkDrums.Services.Products
             catch (Exception e)
             {
                 response.IsSuccessful = false;
-                response.Message = ($"Could not delete product {response.Data.Name}");
+                response.Message = ($"Could not delete product {response.Data.Name}. Stack trace: {e.StackTrace}");
             }
 
             return response;
         }
 
-        // to-do: implement this method
         public ServiceResponse<EntityProducts.Product> ArchiveProduct(int id)
         {
-            _productsWriter.AddArchiveRecordToDb();
+            var response = new ServiceResponse<EntityProducts.Product>()
+            {
+                Time = DateTime.Now
+            };
 
-            throw new NotImplementedException();
+            try
+            {
+                var productToArchive = _productsReader.GetProductFromDbById(id);
+                _productsWriter.AddArchiveRecordToDb(productToArchive);
+                response.Data = productToArchive;
+                response.IsSuccessful = true;
+                response.Message = ($"Successfully archived {productToArchive.Name}");
+            }
+            catch (Exception e)
+            {
+                response.IsSuccessful = false;
+                response.Message = ($"Could not archive product {response.Data.Name}. Stack trace: {e.StackTrace}"); ;
+            }
+
+            return response; 
         }
 
         public void CreateProductInventoryRecord(EntityProducts.Product product)

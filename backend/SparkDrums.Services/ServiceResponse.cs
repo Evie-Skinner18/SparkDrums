@@ -2,7 +2,6 @@
 
 namespace SparkDrums.Services
 {
-    // I thik this is a DTO
     public class ServiceResponse<T>
     {
         public bool IsSuccessful { get; set; }

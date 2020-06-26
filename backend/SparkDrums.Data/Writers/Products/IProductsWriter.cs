@@ -10,6 +10,6 @@ namespace SparkDrums.Data.Writers.Products
 
         void AddProductInventoryRecordToDb(ProductInventory productInventoryRecord);
 
-        void AddArchiveRecordToDb();
+        void AddArchiveRecordToDb(Product product);
     }
 }

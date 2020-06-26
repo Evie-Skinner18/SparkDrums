@@ -30,10 +30,12 @@ namespace SparkDrums.Data.Writers.Products
             _dbContext.SaveChanges();
         }
 
-        // to-do: implement this
-        public void AddArchiveRecordToDb()
+        public void AddArchiveRecordToDb(Product product)
         {
-            throw new System.NotImplementedException();
+            _dbContext.Products.Update(product)
+                .Entity
+                .IsArchived = true;
+            _dbContext.SaveChanges();
         }
     }
 }

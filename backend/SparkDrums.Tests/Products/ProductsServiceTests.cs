@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace SparkDrums.Tests
+namespace SparkDrums.Tests.Products
 {
     public class ProductsServiceTests
     {

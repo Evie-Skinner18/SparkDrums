@@ -56,8 +56,8 @@ namespace SparkDrums.Api
                 options.UseNpgsql(connectionString);
             });
 
-            // register dependencies in the IOC container. When I ask for IBookService, please use the BookService implementation
-            // AddTransient means we want a simple, short-lived instance of a BookService when its behaviour is requested
+            // register dependencies in the IOC container. When I ask for IProductsService, please use the ProductsService implementation
+            // AddTransient means we want a simple, short-lived instance of a ProductsService when its behaviour is requested
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IProductsReader, ProductsReader>();
             services.AddTransient<IProductsWriter, ProductsWriter>();

@@ -1,12 +1,12 @@
 ﻿using EntityProducts = SparkDrums.Data.Models.Products;
-//using ServiceModels = SparkDrums.Services.Models;
+using ServiceProducts = SparkDrums.Services.Models.Products;
 using System.Collections.Generic;
 
 namespace SparkDrums.Services.Products
 {
     public interface IProductsService
     {
-        IEnumerable<EntityProducts.Product> GetAllProducts();
+        IEnumerable<ServiceProducts.Product> GetAllProducts();
 
         EntityProducts.Product GetProductById(int id);
 
