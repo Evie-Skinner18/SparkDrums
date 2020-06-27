@@ -1,4 +1,4 @@
-﻿using SparkDrums.Data.Models.Customers;
+﻿using EntityCustomers = SparkDrums.Data.Models.Customers;
 using System.Collections.Generic;
 
 namespace SparkDrums.Data.Readers.Customers
@@ -12,12 +12,12 @@ namespace SparkDrums.Data.Readers.Customers
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Customer> GetAllCustomersFromDb()
+        public IEnumerable<EntityCustomers.Customer> GetAllCustomersFromDb()
         {
             throw new System.NotImplementedException();
         }
 
-        public Customer GetCustomerFromDbById(int id)
+        public EntityCustomers.Customer GetCustomerFromDbById(int id)
         {
             throw new System.NotImplementedException();
         }

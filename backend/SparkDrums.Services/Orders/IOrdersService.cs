@@ -12,5 +12,9 @@ namespace SparkDrums.Services.Orders
         ServiceResponse<ServiceOrders.SalesOrder> CreateSalesOrder(ServiceOrders.SalesOrder orderToAdd);
 
         ServiceResponse<ServiceOrders.SalesOrder> DeleteSalesOrder(int id);
+
+        IEnumerable<ServiceOrders.SalesOrderItem> GetAllOrderItemsForSalesOrder(int id);
+
+        ServiceOrders.SalesOrderItem GetOrderItemById(int id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using SparkDrums.Data.Models.Orders;
+﻿using System.Collections.Generic;
+using EntityOrders = SparkDrums.Data.Models.Orders;
 
 namespace SparkDrums.Data.Writers.Orders
 {
@@ -11,12 +12,22 @@ namespace SparkDrums.Data.Writers.Orders
             _dbContext = dbContext;
         }
 
-        public void AddSalesOrderToDb(SalesOrder orderToAdd)
+        public void AddSalesOrderToDb(EntityOrders.SalesOrder orderToAdd)
         {
             throw new System.NotImplementedException();
         }
 
-        public void DeleteSalesOrderFromDb(SalesOrder orderToDelete)
+        public void DeleteSalesOrderFromDb(EntityOrders.SalesOrder orderToDelete)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddItemsToSalesOrderInDb(List<EntityOrders.SalesOrderItem> orderItems)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DeleteItemsFromSalesOrderInDb(List<int> orderItemIds)
         {
             throw new System.NotImplementedException();
         }

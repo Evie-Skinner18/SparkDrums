@@ -1,4 +1,4 @@
-﻿using SparkDrums.Data.Models.Customers;
+﻿using EntityCustomers = SparkDrums.Data.Models.Customers;
 
 namespace SparkDrums.Data.Writers.Customers
 {
@@ -11,12 +11,12 @@ namespace SparkDrums.Data.Writers.Customers
             _dbContext = dbContext;
         }
 
-        public void AddCustomerToDb(Customer customerToAdd)
+        public void AddCustomerToDb(EntityCustomers.Customer customerToAdd)
         {
             throw new System.NotImplementedException();
         }
 
-        public void DeleteCustomerFromDb(Customer customerToDelete)
+        public void DeleteCustomerFromDb(EntityCustomers.Customer customerToDelete)
         {
             throw new System.NotImplementedException();
         }

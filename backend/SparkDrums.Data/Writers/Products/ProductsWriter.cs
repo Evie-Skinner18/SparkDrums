@@ -1,4 +1,5 @@
-using SparkDrums.Data.Models.Products;
+using EntityProducts = SparkDrums.Data.Models.Products;
+using EntityInventories = SparkDrums.Data.Models.Inventories;
 
 
 namespace SparkDrums.Data.Writers.Products
@@ -12,25 +13,25 @@ namespace SparkDrums.Data.Writers.Products
             _dbContext = dbContext;
         }
 
-        public void AddProductToDb(Product productToAdd)
+        public void AddProductToDb(EntityProducts.Product productToAdd)
         {
             _dbContext.Products.Add(productToAdd);
             _dbContext.SaveChanges();
         }
 
-        public void DeleteProductFromDb(Product productToDelete)
+        public void DeleteProductFromDb(EntityProducts.Product productToDelete)
         {
             _dbContext.Products.Remove(productToDelete);
             _dbContext.SaveChanges();
         }
 
-        public void AddProductInventoryRecordToDb(ProductInventory productInventoryRecord)
+        public void AddProductInventoryRecordToDb(EntityInventories.ProductInventory productInventoryRecord)
         {
             _dbContext.ProductInventories.Add(productInventoryRecord);
             _dbContext.SaveChanges();
         }
 
-        public void AddArchiveRecordToDb(Product product)
+        public void AddArchiveRecordToDb(EntityProducts.Product product)
         {
             _dbContext.Products.Update(product)
                 .Entity

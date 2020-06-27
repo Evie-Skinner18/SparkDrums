@@ -8,5 +8,9 @@ namespace SparkDrums.Data.Readers.Orders
         IEnumerable<SalesOrder> GetAllSalesOrdersFromDb();
 
         SalesOrder GetSalesOrderFromDbById(int id);
+
+        IEnumerable<SalesOrderItem> GetOrderItemsFromDbByOrderId(int id);
+
+        SalesOrderItem GetOrderItemFromDbById(int id);
     }
 }

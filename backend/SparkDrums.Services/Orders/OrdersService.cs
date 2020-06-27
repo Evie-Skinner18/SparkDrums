@@ -36,5 +36,15 @@ namespace SparkDrums.Services.Orders
         {
             throw new System.NotImplementedException();
         }
+
+        public IEnumerable<ServiceOrders.SalesOrderItem> GetAllOrderItemsForSalesOrder(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ServiceOrders.SalesOrderItem GetOrderItemById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

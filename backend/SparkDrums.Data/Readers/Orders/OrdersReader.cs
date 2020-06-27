@@ -1,4 +1,4 @@
-﻿using SparkDrums.Data.Models.Orders;
+﻿using EntityOrders = SparkDrums.Data.Models.Orders;
 using System.Collections.Generic;
 
 namespace SparkDrums.Data.Readers.Orders
@@ -12,12 +12,22 @@ namespace SparkDrums.Data.Readers.Orders
             _dbContext = dbContext;
         }
 
-        public IEnumerable<SalesOrder> GetAllSalesOrdersFromDb()
+        public IEnumerable<EntityOrders.SalesOrder> GetAllSalesOrdersFromDb()
         {
             throw new System.NotImplementedException();
         }
 
-        public SalesOrder GetSalesOrderFromDbById(int id)
+        public EntityOrders.SalesOrder GetSalesOrderFromDbById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<EntityOrders.SalesOrderItem> GetOrderItemsFromDbByOrderId(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public EntityOrders.SalesOrderItem GetOrderItemFromDbById(int id)
         {
             throw new System.NotImplementedException();
         }
