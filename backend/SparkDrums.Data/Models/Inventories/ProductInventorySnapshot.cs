@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SparkDrums.Data.Models.Products;
+using System;
 
 namespace SparkDrums.Data.Models.Inventories
 {
@@ -15,7 +16,5 @@ namespace SparkDrums.Data.Models.Inventories
         // when was this snapshot taken?
         public DateTime SnapshotTime { get; set; }
     }
-
     // at half four on Fri 15th May, there were {QuantityAvailable} cowbells in stock
-
 }

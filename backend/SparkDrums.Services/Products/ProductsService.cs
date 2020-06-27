@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using SparkDrums.Services.Serialisation;
 using System.Linq;
+using SparkDrums.Data.Writers.Inventories;
 
 namespace SparkDrums.Services.Products
 {

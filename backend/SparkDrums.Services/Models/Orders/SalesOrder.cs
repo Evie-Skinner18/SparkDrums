@@ -1,8 +1,8 @@
-﻿using SparkDrums.Data.Models.Customers;
+﻿using SparkDrums.Services.Models.Customers;
 using System;
 using System.Collections.Generic;
 
-namespace SparkDrums.Data.Models.Orders
+namespace SparkDrums.Services.Models.Orders
 {
     public class SalesOrder
     {
@@ -14,7 +14,6 @@ namespace SparkDrums.Data.Models.Orders
 
         public bool IsPaid { get; set; }
 
-        // when was the order placed?
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }

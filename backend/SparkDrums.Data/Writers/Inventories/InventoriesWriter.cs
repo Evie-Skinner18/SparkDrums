@@ -5,6 +5,14 @@ namespace SparkDrums.Data.Writers.Inventories
 {
     public class InventoriesWriter : IInventoriesWriter
     {
+
+        private SparkDrumsDbContext _dbContext { get; set; }
+
+        public InventoriesWriter(SparkDrumsDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public void AddProductInventoryRecordToDb(ProductInventory productInventoryRecord)
         {
             throw new System.NotImplementedException();
