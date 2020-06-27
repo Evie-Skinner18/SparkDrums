@@ -1,4 +1,6 @@
-﻿
+﻿using EntityInventories = SparkDrums.Data.Models.Inventories;
+
+
 namespace SparkDrums.Data.Writers.Inventories
 {
     public class InventoriesWriter : IInventoriesWriter
@@ -9,6 +11,13 @@ namespace SparkDrums.Data.Writers.Inventories
         public InventoriesWriter(SparkDrumsDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+
+        public void AddProductInventoryRecordToDb(EntityInventories.ProductInventory productInventoryRecord)
+        {
+            _dbContext.ProductInventories.Add(productInventoryRecord);
+            _dbContext.SaveChanges();
         }
 
         public void UpdateQuantityAvailableInDb(int id, int adjustment)

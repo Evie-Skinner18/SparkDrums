@@ -17,6 +17,15 @@ using Microsoft.EntityFrameworkCore;
 using SparkDrums.Services.Products;
 using SparkDrums.Data.Readers.Products;
 using SparkDrums.Data.Writers.Products;
+using SparkDrums.Services.Inventories;
+using SparkDrums.Data.Readers.Inventories;
+using SparkDrums.Services.Customers;
+using SparkDrums.Data.Writers.Inventories;
+using SparkDrums.Data.Readers.Customers;
+using SparkDrums.Data.Writers.Customers;
+using SparkDrums.Services.Orders;
+using SparkDrums.Data.Readers.Orders;
+using SparkDrums.Data.Writers.Orders;
 
 namespace SparkDrums.Api
 {
@@ -61,6 +70,19 @@ namespace SparkDrums.Api
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IProductsReader, ProductsReader>();
             services.AddTransient<IProductsWriter, ProductsWriter>();
+
+            services.AddTransient<IInventoriesService, InventoriesService>();
+            services.AddTransient<IInventoriesReader, InventoriesReader>();
+            services.AddTransient<IInventoriesWriter, InventoriesWriter>();
+
+            services.AddTransient<ICustomersService, CustomersService>();
+            services.AddTransient<ICustomersReader, CustomersReader>();
+            services.AddTransient<ICustomersWriter, CustomersWriter>();
+
+            services.AddTransient<IOrdersService, OrdersService>();
+            services.AddTransient<IOrdersReader, OrdersReader>();
+            services.AddTransient<IOrdersWriter, OrdersWriter>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
