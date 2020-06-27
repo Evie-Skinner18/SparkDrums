@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using EntityCustomers = SparkDrums.Data.Models.Customers;
+using ServiceCustomers = SparkDrums.Services.Models.Customers;
 
 namespace SparkDrums.Services.Customers
 {
     public interface ICustomersService
     {
-        IEnumerable<EntityCustomers.Customer> GetAllCustomers();
-        EntityCustomers.Customer GetCustomerById(int id);
-        ServiceResponse<EntityCustomers.Customer> CreateCustomer(EntityCustomers.Customer customerToAdd);
-        ServiceResponse<EntityCustomers.Customer> DeleteCustomer(int id);
+        IEnumerable<ServiceCustomers.Customer> GetAllCustomers();
+        ServiceCustomers.Customer GetCustomerById(int id);
+        ServiceResponse<ServiceCustomers.Customer> CreateCustomer(ServiceCustomers.Customer customerToAdd);
+        ServiceResponse<ServiceCustomers.Customer> DeleteCustomer(int id);
     }
 }

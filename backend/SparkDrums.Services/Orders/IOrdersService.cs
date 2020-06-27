@@ -9,9 +9,14 @@ namespace SparkDrums.Services.Orders
 
         ServiceOrders.SalesOrder GetSalesOrderById(int id);
 
+        ServiceResponse<bool> GenerateInvoiceForOrder(ServiceOrders.SalesOrder order);
+
+        ServiceResponse<bool> MarkOrderAsFulfilled(int id);
+
         ServiceResponse<ServiceOrders.SalesOrder> CreateSalesOrder(ServiceOrders.SalesOrder orderToAdd);
 
         ServiceResponse<ServiceOrders.SalesOrder> DeleteSalesOrder(int id);
+
 
         IEnumerable<ServiceOrders.SalesOrderItem> GetAllOrderItemsForSalesOrder(int id);
 

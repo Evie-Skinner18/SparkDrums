@@ -13,12 +13,14 @@ namespace SparkDrums.Data.Writers.Customers
 
         public void AddCustomerToDb(EntityCustomers.Customer customerToAdd)
         {
-            throw new System.NotImplementedException();
+            _dbContext.Customers.Add(customerToAdd);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteCustomerFromDb(EntityCustomers.Customer customerToDelete)
         {
-            throw new System.NotImplementedException();
+            _dbContext.Remove(customerToDelete);
+            _dbContext.SaveChanges();
         }
     }
 }

@@ -37,6 +37,17 @@ namespace SparkDrums.Services.Orders
             throw new System.NotImplementedException();
         }
 
+        public ServiceResponse<bool> GenerateInvoiceForOrder(ServiceOrders.SalesOrder order)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ServiceResponse<bool> MarkOrderAsFulfilled(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
         public IEnumerable<ServiceOrders.SalesOrderItem> GetAllOrderItemsForSalesOrder(int id)
         {
             throw new System.NotImplementedException();
@@ -45,6 +56,6 @@ namespace SparkDrums.Services.Orders
         public ServiceOrders.SalesOrderItem GetOrderItemById(int id)
         {
             throw new System.NotImplementedException();
-        }
+        }       
     }
 }

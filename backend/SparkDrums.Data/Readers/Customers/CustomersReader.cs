@@ -1,5 +1,7 @@
 ﻿using EntityCustomers = SparkDrums.Data.Models.Customers;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace SparkDrums.Data.Readers.Customers
 {
@@ -12,14 +14,20 @@ namespace SparkDrums.Data.Readers.Customers
             _dbContext = dbContext;
         }
 
+        // test that this returns empty IEnumerable if it can't find any customers
         public IEnumerable<EntityCustomers.Customer> GetAllCustomersFromDb()
         {
-            throw new System.NotImplementedException();
+            var allCustomers = _dbContext.Customers
+                .Include(c => c.PrimaryAddress)
+                .OrderBy(c => c.Surname);
+            return allCustomers;
         }
 
+        // to- do: replace all 'Find' statements with SingleOrDefault to avoid null situation
         public EntityCustomers.Customer GetCustomerFromDbById(int id)
         {
-            throw new System.NotImplementedException();
+            var customerWithGivenId = _dbContext.Customers.SingleOrDefault(c=> c.Id == id);
+            return customerWithGivenId;
         }
     }
 }

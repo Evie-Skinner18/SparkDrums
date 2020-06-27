@@ -6,19 +6,17 @@ namespace SparkDrums.Services.Inventories
     // ProductsService already has a CreateProductInventoryRecord
     public interface IInventoriesService
     {
-        IEnumerable<ServiceInventories.ProductInventory> GetAllProductInventoryRecords();
+        IEnumerable<ServiceInventories.ProductInventory> GetCurrentProductInventory();
 
         ServiceInventories.ProductInventory GetProductInventoryRecordById(int id);
 
         ServiceResponse<ServiceInventories.ProductInventory> DeleteProductInventoryRecord(int id);
 
 
-        IEnumerable<ServiceInventories.ProductInventorySnapshot> GetAllProductInventorySnapshots();
+        IEnumerable<ServiceInventories.ProductInventorySnapshot> GetSnapshotHistory();
 
-        ServiceInventories.ProductInventorySnapshot GetProductInventorySnapshotById(int id);
+        ServiceResponse<ServiceInventories.ProductInventory> UpdateQuantityAvailable(int id, int adjustment);
 
-        ServiceResponse<ServiceInventories.ProductInventorySnapshot> CreateProductInventorySnapshot(ServiceInventories.ProductInventorySnapshot snapshot);
-
-        ServiceResponse<ServiceInventories.ProductInventorySnapshot> DeleteProductInventorySnapshot(int id);
+        void CreateProductInventorySnapshot();
     }
 }

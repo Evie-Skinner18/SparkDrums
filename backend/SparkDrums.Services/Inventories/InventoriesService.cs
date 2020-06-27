@@ -17,27 +17,7 @@ namespace SparkDrums.Services.Inventories
             _inventoriesWriter = inventoriesWriter;
         }
 
-        public ServiceResponse<ServiceInventories.ProductInventorySnapshot> CreateProductInventorySnapshot(ServiceInventories.ProductInventorySnapshot snapshot)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ServiceResponse<ServiceInventories.ProductInventory> DeleteProductInventoryRecord(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ServiceResponse<ServiceInventories.ProductInventorySnapshot> DeleteProductInventorySnapshot(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<ServiceInventories.ProductInventory> GetAllProductInventoryRecords()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<ServiceInventories.ProductInventorySnapshot> GetAllProductInventorySnapshots()
+        public IEnumerable<ServiceInventories.ProductInventory> GetCurrentProductInventory()
         {
             throw new System.NotImplementedException();
         }
@@ -47,9 +27,24 @@ namespace SparkDrums.Services.Inventories
             throw new System.NotImplementedException();
         }
 
-        public ServiceInventories.ProductInventorySnapshot GetProductInventorySnapshotById(int id)
+        public ServiceResponse<ServiceInventories.ProductInventory> DeleteProductInventoryRecord(int id)
         {
-            throw new global::System.NotImplementedException();
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<ServiceInventories.ProductInventorySnapshot> GetSnapshotHistory()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ServiceResponse<ServiceInventories.ProductInventory> UpdateQuantityAvailable(int id, int adjustment)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CreateProductInventorySnapshot()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

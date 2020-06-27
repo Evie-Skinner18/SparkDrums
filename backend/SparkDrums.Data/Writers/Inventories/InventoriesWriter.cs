@@ -1,6 +1,4 @@
-﻿using EntityInventories = SparkDrums.Data.Models.Inventories;
-using EntityProducts = SparkDrums.Data.Models.Products;
-
+﻿
 namespace SparkDrums.Data.Writers.Inventories
 {
     public class InventoriesWriter : IInventoriesWriter
@@ -13,12 +11,12 @@ namespace SparkDrums.Data.Writers.Inventories
             _dbContext = dbContext;
         }
 
-        public void AddProductInventoryRecordToDb(EntityInventories.ProductInventory productInventoryRecord)
+        public void UpdateQuantityAvailableInDb(int id, int adjustment)
         {
             throw new System.NotImplementedException();
         }
 
-        public void DeleteProductInventoryRecordFromDb(EntityProducts.Product productToDelete)
+        public void AddProductInventorySnapshotToDb()
         {
             throw new System.NotImplementedException();
         }

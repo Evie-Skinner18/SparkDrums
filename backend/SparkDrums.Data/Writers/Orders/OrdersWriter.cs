@@ -31,5 +31,10 @@ namespace SparkDrums.Data.Writers.Orders
         {
             throw new System.NotImplementedException();
         }
+
+        public void MarkOrderAsFulfilledInDb(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

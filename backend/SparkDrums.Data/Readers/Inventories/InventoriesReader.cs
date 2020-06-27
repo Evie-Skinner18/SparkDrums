@@ -1,4 +1,4 @@
-﻿using SparkDrums.Data.Models.Inventories;
+﻿using EntityInventories = SparkDrums.Data.Models.Inventories;
 using System.Collections.Generic;
 
 namespace SparkDrums.Data.Readers.Inventories
@@ -12,22 +12,17 @@ namespace SparkDrums.Data.Readers.Inventories
             _dbContext = dbContext;
         }
 
-        public IEnumerable<ProductInventory> GetAllProductInventoryRecordsFromDb()
+        public IEnumerable<EntityInventories.ProductInventory> GetCurrentProductInventoryFromDb()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<ProductInventorySnapshot> GetAllProductInventorySnapshotsFromDb()
+        public EntityInventories.ProductInventory GetProductInventoryRecordFromDbById(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public ProductInventory GetProductInventoryRecordFromDbById(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ProductInventorySnapshot GetProductInventorySnapshotById(int id)
+        public IEnumerable<EntityInventories.ProductInventorySnapshot> GetSnapshotHistoryFromDb()
         {
             throw new System.NotImplementedException();
         }

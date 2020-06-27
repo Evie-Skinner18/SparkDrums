@@ -1,7 +1,11 @@
-﻿using SparkDrums.Data.Models.Customers;
+﻿using ServiceCustomers =  SparkDrums.Services.Models.Customers;
+using EntityCustomers = SparkDrums.Data.Models.Customers;
 using SparkDrums.Data.Readers.Customers;
 using SparkDrums.Data.Writers.Customers;
 using System.Collections.Generic;
+using System.Linq;
+using SparkDrums.Services.Serialisation;
+using System;
 
 namespace SparkDrums.Services.Customers
 {
@@ -12,24 +16,79 @@ namespace SparkDrums.Services.Customers
         private ICustomersWriter _customersWriter { get; set; }
 
 
-        public ServiceResponse<Customer> CreateCustomer(Customer customerToAdd)
+        public CustomersService(ICustomersReader customersReader, ICustomersWriter customersWriter)
         {
-            throw new System.NotImplementedException();
+            _customersReader = customersReader;
+            _customersWriter = customersWriter;
         }
 
-        public ServiceResponse<Customer> DeleteCustomer(int id)
+
+        public IEnumerable<ServiceCustomers.Customer> GetAllCustomers()
         {
-            throw new System.NotImplementedException();
+            var entityCustomers = _customersReader.GetAllCustomersFromDb();
+            var serviceCustomers = entityCustomers
+                .Select(c => CustomerMapper
+                .SerialiseCustomer(c));
+
+            return serviceCustomers;
         }
 
-        public IEnumerable<Customer> GetAllCustomers()
+        public ServiceCustomers.Customer GetCustomerById(int id)
         {
-            throw new System.NotImplementedException();
+            var entityCustomer = _customersReader.GetCustomerFromDbById(id);
+            var serviceCustomer = CustomerMapper.SerialiseCustomer(entityCustomer);
+            return serviceCustomer;
         }
 
-        public Customer GetCustomerById(int id)
+        public ServiceResponse<ServiceCustomers.Customer> CreateCustomer(ServiceCustomers.Customer customerToAdd)
         {
-            throw new System.NotImplementedException();
+            var response = new ServiceResponse<ServiceCustomers.Customer>()
+            {
+                Time = DateTime.Now,
+                Data = customerToAdd
+            };
+
+            try
+            {
+                var entityCustomerToAdd = CustomerMapper.SerialiseCustomer(customerToAdd);
+                _customersWriter.AddCustomerToDb(entityCustomerToAdd);
+                response.IsSuccessful = true;
+                response.Message = $"Successfully added {customerToAdd.GivenName} {customerToAdd.Surname}";
+
+            }
+            catch (Exception e)
+            {
+                response.IsSuccessful = false;
+                response.Message = $"Failed to add {customerToAdd.GivenName} {customerToAdd.Surname}. Stack trace: {e.StackTrace}";
+            }
+
+            return response;
+        }
+
+        public ServiceResponse<ServiceCustomers.Customer> DeleteCustomer(int id)
+        {
+            var response = new ServiceResponse<ServiceCustomers.Customer>()
+            {
+                Time = DateTime.Now,
+            };
+
+            try
+            {
+                var entityCustomerToDelete = _customersReader.GetCustomerFromDbById(id);
+                response.Data = CustomerMapper.SerialiseCustomer(entityCustomerToDelete);
+
+                _customersWriter.DeleteCustomerFromDb(entityCustomerToDelete);
+                response.IsSuccessful = true;
+                response.Message = $"Successfully added {entityCustomerToDelete.GivenName} {entityCustomerToDelete.Surname}";
+
+            }
+            catch (Exception e)
+            {
+                response.IsSuccessful = false;
+                response.Message = $"Failed to add {response.Data.GivenName} {response.Data.Surname}. Stack trace: {e.StackTrace}";
+            }
+
+            return response;
         }
     }
 }

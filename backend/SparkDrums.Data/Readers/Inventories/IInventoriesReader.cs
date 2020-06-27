@@ -5,12 +5,10 @@ namespace SparkDrums.Data.Readers.Inventories
 {
     public interface IInventoriesReader
     {
-        IEnumerable<ProductInventory> GetAllProductInventoryRecordsFromDb();
+        IEnumerable<ProductInventory> GetCurrentProductInventoryFromDb();
 
         ProductInventory GetProductInventoryRecordFromDbById(int id);
 
-        IEnumerable<ProductInventorySnapshot> GetAllProductInventorySnapshotsFromDb();
-
-        ProductInventorySnapshot GetProductInventorySnapshotById(int id);
+        IEnumerable<ProductInventorySnapshot> GetSnapshotHistoryFromDb();
     }
 }
