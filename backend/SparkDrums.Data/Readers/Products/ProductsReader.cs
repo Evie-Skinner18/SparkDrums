@@ -1,5 +1,6 @@
 using SparkDrums.Data.Models.Products;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SparkDrums.Data.Readers.Products
 {
@@ -23,7 +24,7 @@ namespace SparkDrums.Data.Readers.Products
         {
             var productWithGivenId = _dbContext
                 .Products
-                .Find(id);
+                .SingleOrDefault(p => p.Id == id);
             return productWithGivenId;
         }
     }

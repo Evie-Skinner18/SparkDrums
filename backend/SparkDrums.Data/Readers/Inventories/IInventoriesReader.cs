@@ -1,4 +1,5 @@
 ﻿using SparkDrums.Data.Models.Inventories;
+using System;
 using System.Collections.Generic;
 
 namespace SparkDrums.Data.Readers.Inventories
@@ -7,8 +8,8 @@ namespace SparkDrums.Data.Readers.Inventories
     {
         IEnumerable<ProductInventory> GetCurrentProductInventoryFromDb();
 
-        ProductInventory GetProductInventoryRecordFromDbById(int id);
+        ProductInventory GetProductInventoryRecordFromDbByProductId(int id);
 
-        IEnumerable<ProductInventorySnapshot> GetSnapshotHistoryFromDb();
+        IEnumerable<ProductInventorySnapshot> GetSnapshotHistoryFromDb(DateTime earliestTime);
     }
 }

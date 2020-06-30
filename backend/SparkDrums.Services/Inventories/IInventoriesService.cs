@@ -8,7 +8,7 @@ namespace SparkDrums.Services.Inventories
     {
         IEnumerable<ServiceInventories.ProductInventory> GetCurrentProductInventory();
 
-        ServiceInventories.ProductInventory GetProductInventoryRecordById(int id);
+        ServiceInventories.ProductInventory GetProductInventoryRecordByProductId(int id);
 
         ServiceResponse<ServiceInventories.ProductInventory> DeleteProductInventoryRecord(int id);
 
@@ -16,7 +16,5 @@ namespace SparkDrums.Services.Inventories
         IEnumerable<ServiceInventories.ProductInventorySnapshot> GetSnapshotHistory();
 
         ServiceResponse<ServiceInventories.ProductInventory> UpdateQuantityAvailable(int id, int adjustment);
-
-        void CreateProductInventorySnapshot();
     }
 }

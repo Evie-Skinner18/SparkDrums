@@ -13,7 +13,7 @@ namespace SparkDrums.Data.Writers.Customers
 
         public void AddCustomerToDb(EntityCustomers.Customer customerToAdd)
         {
-            _dbContext.Customers.Add(customerToAdd);
+            _dbContext.Add(customerToAdd);
             _dbContext.SaveChanges();
         }
 

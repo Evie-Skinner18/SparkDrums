@@ -1,5 +1,8 @@
 ﻿using EntityInventories = SparkDrums.Data.Models.Inventories;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System;
 
 namespace SparkDrums.Data.Readers.Inventories
 {
@@ -14,17 +17,26 @@ namespace SparkDrums.Data.Readers.Inventories
 
         public IEnumerable<EntityInventories.ProductInventory> GetCurrentProductInventoryFromDb()
         {
-            throw new System.NotImplementedException();
+            var allProductInventories = _dbContext.ProductInventories
+                .Include(pi => pi.Product)
+                .Where(pi => !pi.Product.IsArchived);
+            return allProductInventories;
         }
 
-        public EntityInventories.ProductInventory GetProductInventoryRecordFromDbById(int id)
+        public EntityInventories.ProductInventory GetProductInventoryRecordFromDbByProductId(int id)
         {
-            throw new System.NotImplementedException();
+            var productInventoryForGivenProduct = _dbContext.ProductInventories
+                .Include(pi => pi.Product)
+                .SingleOrDefault(pi => pi.Product.Id == id);
+            return productInventoryForGivenProduct;
         }
 
-        public IEnumerable<EntityInventories.ProductInventorySnapshot> GetSnapshotHistoryFromDb()
+        public IEnumerable<EntityInventories.ProductInventorySnapshot> GetSnapshotHistoryFromDb(DateTime earliestTime)
         {
-            throw new System.NotImplementedException();
+            var snapshotHistory = _dbContext.ProductInventorySnapshots
+                .Include(s => s.Product)
+                .Where(s => s.SnapshotTime > earliestTime && !s.Product.IsArchived);
+            return snapshotHistory;
         }
     }
 }

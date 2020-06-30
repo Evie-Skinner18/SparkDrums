@@ -26,7 +26,8 @@ namespace SparkDrums.Data.Readers.Customers
         // to- do: replace all 'Find' statements with SingleOrDefault to avoid null situation
         public EntityCustomers.Customer GetCustomerFromDbById(int id)
         {
-            var customerWithGivenId = _dbContext.Customers.SingleOrDefault(c=> c.Id == id);
+            var customerWithGivenId = _dbContext.Customers
+                .SingleOrDefault(c=> c.Id == id);
             return customerWithGivenId;
         }
     }

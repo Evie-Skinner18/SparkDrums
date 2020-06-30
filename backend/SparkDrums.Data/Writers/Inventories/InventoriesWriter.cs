@@ -1,4 +1,7 @@
-﻿using EntityInventories = SparkDrums.Data.Models.Inventories;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using EntityInventories = SparkDrums.Data.Models.Inventories;
 
 
 namespace SparkDrums.Data.Writers.Inventories
@@ -16,18 +19,33 @@ namespace SparkDrums.Data.Writers.Inventories
 
         public void AddProductInventoryRecordToDb(EntityInventories.ProductInventory productInventoryRecord)
         {
-            _dbContext.ProductInventories.Add(productInventoryRecord);
+            _dbContext.Add(productInventoryRecord);
             _dbContext.SaveChanges();
         }
 
-        public void UpdateQuantityAvailableInDb(int id, int adjustment)
+        public void UpdateQuantityAvailableInDb(int productId, int adjustment)
         {
-            throw new System.NotImplementedException();
+            var currentInventoryForGivenProduct = _dbContext.ProductInventories
+                .Include(pi => pi.Product)
+                .SingleOrDefault(pi => pi.Product.Id == productId);
+
+            currentInventoryForGivenProduct.QuantityAvailable += adjustment;
+
+            _dbContext.ProductInventories.Update(currentInventoryForGivenProduct);
+            _dbContext.SaveChanges();            
         }
 
-        public void AddProductInventorySnapshotToDb()
+        public void AddProductInventorySnapshotToDb(EntityInventories.ProductInventory productInventoryRecord)
         {
-            throw new System.NotImplementedException();
+            var snapshotToAdd = new EntityInventories.ProductInventorySnapshot()
+            {
+                Product = productInventoryRecord.Product,
+                QuantityAvailable = productInventoryRecord.QuantityAvailable,
+                SnapshotTime = DateTime.Now
+            };
+
+            _dbContext.Add(snapshotToAdd);
+            _dbContext.SaveChanges();
         }
     }
 }

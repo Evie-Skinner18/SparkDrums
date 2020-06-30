@@ -1,5 +1,4 @@
 ﻿using SparkDrums.Data.Models.Inventories;
-using SparkDrums.Data.Models.Products;
 
 namespace SparkDrums.Data.Writers.Inventories
 {
@@ -9,6 +8,6 @@ namespace SparkDrums.Data.Writers.Inventories
 
         void UpdateQuantityAvailableInDb(int id, int adjustment);
 
-        void AddProductInventorySnapshotToDb();
+        void AddProductInventorySnapshotToDb(ProductInventory productInventoryRecord);
     }
 }
