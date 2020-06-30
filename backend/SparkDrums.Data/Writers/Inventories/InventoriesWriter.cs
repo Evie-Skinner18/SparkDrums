@@ -23,6 +23,7 @@ namespace SparkDrums.Data.Writers.Inventories
             _dbContext.SaveChanges();
         }
 
+        // you may need to use a product inventory id instead, but using product id allows OrdersService to not depend on InventoriesReader
         public void UpdateQuantityAvailableInDb(int productId, int adjustment)
         {
             var currentInventoryForGivenProduct = _dbContext.ProductInventories

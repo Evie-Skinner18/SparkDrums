@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EntityOrders = SparkDrums.Data.Models.Orders;
 
 namespace SparkDrums.Data.Writers.Orders
@@ -32,9 +33,13 @@ namespace SparkDrums.Data.Writers.Orders
             throw new System.NotImplementedException();
         }
 
-        public void MarkOrderAsFulfilledInDb(int id)
+        public void MarkOrderAsPaidInDb(int id)
         {
-            throw new System.NotImplementedException();
+            var orderToUpdate = _dbContext.SalesOrders.SingleOrDefault(o => o.Id == id);
+            orderToUpdate.IsPaid = true;
+
+            _dbContext.Update(orderToUpdate);
+            _dbContext.SaveChanges();
         }
     }
 }

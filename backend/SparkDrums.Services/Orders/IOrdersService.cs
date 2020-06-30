@@ -11,7 +11,7 @@ namespace SparkDrums.Services.Orders
 
         ServiceResponse<bool> GenerateInvoiceForOrder(ServiceOrders.SalesOrder order);
 
-        ServiceResponse<bool> MarkOrderAsFulfilled(int id);
+        ServiceResponse<bool> MarkOrderAsPaid(int id);
 
         ServiceResponse<ServiceOrders.SalesOrder> CreateSalesOrder(ServiceOrders.SalesOrder orderToAdd);
 

@@ -1,5 +1,6 @@
 ﻿using EntityOrders = SparkDrums.Data.Models.Orders;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace SparkDrums.Data.Readers.Orders
 {
@@ -14,12 +15,18 @@ namespace SparkDrums.Data.Readers.Orders
 
         public IEnumerable<EntityOrders.SalesOrder> GetAllSalesOrdersFromDb()
         {
-            throw new System.NotImplementedException();
+            var allOrders = _dbContext.SalesOrders
+                .Include(o => o.Items)
+                    .ThenInclude(i => i.Product)
+                .Include(o => o.Customer)
+                    .ThenInclude(c => c.PrimaryAddress);
+
+            return allOrders;
         }
 
         public EntityOrders.SalesOrder GetSalesOrderFromDbById(int id)
         {
-            throw new System.NotImplementedException();
+       
         }
 
         public IEnumerable<EntityOrders.SalesOrderItem> GetOrderItemsFromDbByOrderId(int id)

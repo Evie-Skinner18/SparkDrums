@@ -6,7 +6,7 @@ namespace SparkDrums.Data.Writers.Inventories
     {
         void AddProductInventoryRecordToDb(ProductInventory productInventoryRecord);
 
-        void UpdateQuantityAvailableInDb(int id, int adjustment);
+        void UpdateQuantityAvailableInDb(int productId, int adjustment);
 
         void AddProductInventorySnapshotToDb(ProductInventory productInventoryRecord);
     }

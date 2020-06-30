@@ -7,7 +7,7 @@ namespace SparkDrums.Data.Writers.Orders
     {
         void AddSalesOrderToDb(SalesOrder orderToAdd);
 
-        void MarkOrderAsFulfilledInDb(int id);
+        void MarkOrderAsPaidInDb(int id);
 
         void DeleteSalesOrderFromDb(SalesOrder orderToDelete);
 
