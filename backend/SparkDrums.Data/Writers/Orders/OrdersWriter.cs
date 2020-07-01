@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EntityOrders = SparkDrums.Data.Models.Orders;
 
@@ -15,7 +16,8 @@ namespace SparkDrums.Data.Writers.Orders
 
         public void AddSalesOrderToDb(EntityOrders.SalesOrder orderToAdd)
         {
-            throw new System.NotImplementedException();
+            _dbContext.Add(orderToAdd);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteSalesOrderFromDb(EntityOrders.SalesOrder orderToDelete)
@@ -37,6 +39,7 @@ namespace SparkDrums.Data.Writers.Orders
         {
             var orderToUpdate = _dbContext.SalesOrders.SingleOrDefault(o => o.Id == id);
             orderToUpdate.IsPaid = true;
+            orderToUpdate.UpdatedOn = DateTime.Now;
 
             _dbContext.Update(orderToUpdate);
             _dbContext.SaveChanges();

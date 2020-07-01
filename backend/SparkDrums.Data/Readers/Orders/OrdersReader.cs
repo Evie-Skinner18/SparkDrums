@@ -26,7 +26,7 @@ namespace SparkDrums.Data.Readers.Orders
 
         public EntityOrders.SalesOrder GetSalesOrderFromDbById(int id)
         {
-       
+            throw new System.NotImplementedException();
         }
 
         public IEnumerable<EntityOrders.SalesOrderItem> GetOrderItemsFromDbByOrderId(int id)

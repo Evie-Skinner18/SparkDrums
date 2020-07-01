@@ -32,11 +32,7 @@ namespace SparkDrums.Services.Orders
             _inventoriesWriter = inventoriesWriter;
             _logger = logger;         
         }
-
-        public ServiceResponse<ServiceOrders.SalesOrder> CreateSalesOrder(ServiceOrders.SalesOrder orderToAdd)
-        {
-            throw new System.NotImplementedException();
-        }
+       
 
         public ServiceResponse<ServiceOrders.SalesOrder> DeleteSalesOrder(int id)
         {
@@ -53,21 +49,57 @@ namespace SparkDrums.Services.Orders
             throw new System.NotImplementedException();
         }
 
-        public ServiceResponse<bool> GenerateInvoiceForOrder(ServiceOrders.SalesOrder order)
+        public ServiceResponse<bool> PlaceOrder(ServiceOrders.SalesOrder order)
         {
-            //var entityOrder = OrderMapper.SerialiseSalesOrder(order);
-   
+            _logger.LogInformation($"Getting items from new order placed by {order.Customer.GivenName} {order.Customer.Surname}");
             foreach (var item in order.Items)
             {
                 var entityProductWithGivenId = _productsReader.GetProductFromDbById(item.Product.Id);
                 var serviceProduct = ProductMapper.SerialiseProduct(entityProductWithGivenId);
                 item.Product = serviceProduct;
 
-                // find the inventory record that matches given product id as opposed to find inventory record with given inventory record id
+                // find the inventory record that matches given product id as opposed to find inventory record with given inventory record id. Like this we only need to inject
+                // product reader and inventoies writer no need for inventories reader aswell
                 _inventoriesWriter.UpdateQuantityAvailableInDb(item.Product.Id, -item.QuantityOrdered);
                 item.Product.UpdatedOn = DateTime.Now;
             }
 
+            _logger.LogInformation("Updated quantity available of each item in this order. Now creating sales order in DB...");
+            // error handling is happening in separate function so PlaceOrder() is cleaner I think
+            var orderResponse = CreateSalesOrder(order);
+            var boolResponse = new ServiceResponse<bool>()
+            {
+                Time = DateTime.Now,
+                Data = orderResponse.IsSuccessful,
+                IsSuccessful = orderResponse.IsSuccessful,
+                Message = orderResponse.Message
+            };
+
+            return boolResponse;
+        }
+
+        public ServiceResponse<ServiceOrders.SalesOrder> CreateSalesOrder(ServiceOrders.SalesOrder orderToAdd)
+        {
+            var response = new ServiceResponse<ServiceOrders.SalesOrder>()
+            {
+                Time = DateTime.Now,
+                Data = orderToAdd
+            };
+
+            try
+            {
+                var entityOrder = OrderMapper.SerialiseSalesOrder(orderToAdd);
+                _ordersWriter.AddSalesOrderToDb(entityOrder);
+                response.IsSuccessful = true;
+                response.Message = $"Order number {orderToAdd.Id} successfully created";
+            }
+            catch (Exception e)
+            {
+                response.IsSuccessful = false;
+                response.Message = $"Failed to create order number {orderToAdd.Id} placed by customer {orderToAdd.Customer.GivenName} {orderToAdd.Customer.Surname}. Stack trace: {e.StackTrace}";
+            }
+
+            return response;
         }
 
         public ServiceResponse<bool> MarkOrderAsPaid(int id)

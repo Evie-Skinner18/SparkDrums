@@ -9,7 +9,7 @@ namespace SparkDrums.Services.Orders
 
         ServiceOrders.SalesOrder GetSalesOrderById(int id);
 
-        ServiceResponse<bool> GenerateInvoiceForOrder(ServiceOrders.SalesOrder order);
+        ServiceResponse<bool> PlaceOrder(ServiceOrders.SalesOrder order);
 
         ServiceResponse<bool> MarkOrderAsPaid(int id);
 
