@@ -14,7 +14,7 @@ namespace SparkDrums.Services.Serialisation
             var serviceOrder = new ServiceOrders.SalesOrder()
             {
                 Id = entityOrder.Id,
-                Customer = CustomerMapper.SerialiseCustomer(entityOrder.Customer),
+                CustomerId = CustomerMapper.SerialiseCustomer(entityOrder.Customer).Id,
                 Items = SerialiseSalesOrderItems(entityOrder.Items),
                 IsPaid = entityOrder.IsPaid,
                 CreatedOn = entityOrder.CreatedOn,
@@ -46,13 +46,12 @@ namespace SparkDrums.Services.Serialisation
         }
 
 
-        // in comes a service model and out goes an entity model
+        // in comes a service model and out goes an entity model. Maping for the Customer inside is done outside, in e.g the OrdersService by invoking a customers reader
         public static EntityOrders.SalesOrder SerialiseSalesOrder(ServiceOrders.SalesOrder serviceOrder)
         {
             var entityOrder = new EntityOrders.SalesOrder()
             {
                 Id = serviceOrder.Id,
-                Customer = CustomerMapper.SerialiseCustomer(serviceOrder.Customer),
                 Items = SerialiseSalesOrderItems(serviceOrder.Items),
                 IsPaid = serviceOrder.IsPaid,
                 CreatedOn = serviceOrder.CreatedOn,

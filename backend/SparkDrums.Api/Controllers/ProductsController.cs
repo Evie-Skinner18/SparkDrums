@@ -18,7 +18,6 @@ namespace SparkDrums.Api.Controllers
             _productsService = productsService;
         }
 
-       // to-do: add a Dimensions or Size prop to the Product model. so you can have the same product but e.g in 5A, 14" by 7" etc
         [HttpGet("/api/products")]
         public ActionResult GetAllProducts()
         {
@@ -26,5 +25,15 @@ namespace SparkDrums.Api.Controllers
             var allProducts = _productsService.GetAllProducts();
             return Ok(allProducts);
         }
+
+        [HttpPatch("/api/products/{id}")]
+        public ActionResult ArchiveProduct(int id)
+        {
+            _logger.LogInformation($"Archiving product {id}");
+            var archiveResponse = _productsService.ArchiveProduct(id);
+            return Ok(archiveResponse);
+        }
+
+
     }
 }

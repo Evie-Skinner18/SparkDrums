@@ -58,6 +58,8 @@ namespace SparkDrums.Services.Serialisation
             return entityCustomer;
         }
 
+        // in comes a service model id and out 
+
         public static EntityCustomers.CustomerAddress SerialiseCustomerAddress(ServiceCustomers.CustomerAddress serviceCustomerAddress)
         {
             var entityAddress = new EntityCustomers.CustomerAddress()

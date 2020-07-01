@@ -1,5 +1,4 @@
-﻿using SparkDrums.Services.Models.Customers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SparkDrums.Services.Models.Orders
@@ -8,7 +7,9 @@ namespace SparkDrums.Services.Models.Orders
     {
         public int Id { get; set; }
 
-        public Customer Customer { get; set; }
+        // in goes a customer id in the POST request for placing an order, and the customers reader injected into OrdersService grabs the relevant customer from the DB
+        // from this id
+        public int CustomerId { get; set; }
 
         public List<SalesOrderItem> Items { get; set; }
 

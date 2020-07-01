@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using SparkDrums.Data.Readers.Products;
 using SparkDrums.Data.Readers.Inventories;
 using SparkDrums.Data.Writers.Inventories;
+using SparkDrums.Data.Readers.Customers;
 
 namespace SparkDrums.Services.Orders
 {
@@ -22,14 +23,18 @@ namespace SparkDrums.Services.Orders
 
         private IInventoriesWriter _inventoriesWriter { get; set; }
 
+        private ICustomersReader _customersReader { get; set; }
+
         private ILogger<OrdersService> _logger { get; set; }
 
-        public OrdersService(IOrdersReader ordersReader, IOrdersWriter ordersWriter, IProductsReader productsReader, IInventoriesWriter inventoriesWriter, ILogger<OrdersService> logger)
+        public OrdersService(IOrdersReader ordersReader, IOrdersWriter ordersWriter, IProductsReader productsReader, IInventoriesWriter inventoriesWriter, ICustomersReader customersReader,
+            ILogger<OrdersService> logger)
         {
             _ordersReader = ordersReader;
             _ordersWriter = ordersWriter;
             _productsReader = productsReader;
             _inventoriesWriter = inventoriesWriter;
+            _customersReader = customersReader;
             _logger = logger;         
         }
        
@@ -51,7 +56,7 @@ namespace SparkDrums.Services.Orders
 
         public ServiceResponse<bool> PlaceOrder(ServiceOrders.SalesOrder order)
         {
-            _logger.LogInformation($"Getting items from new order placed by {order.Customer.GivenName} {order.Customer.Surname}");
+            _logger.LogInformation($"Getting items from new order placed by customer {order.CustomerId}");
             foreach (var item in order.Items)
             {
                 var entityProductWithGivenId = _productsReader.GetProductFromDbById(item.Product.Id);
@@ -88,7 +93,9 @@ namespace SparkDrums.Services.Orders
 
             try
             {
+                var entityCustomer = _customersReader.GetCustomerFromDbById(orderToAdd.CustomerId);
                 var entityOrder = OrderMapper.SerialiseSalesOrder(orderToAdd);
+                entityOrder.Customer = entityCustomer;
                 _ordersWriter.AddSalesOrderToDb(entityOrder);
                 response.IsSuccessful = true;
                 response.Message = $"Order number {orderToAdd.Id} successfully created";
@@ -96,7 +103,7 @@ namespace SparkDrums.Services.Orders
             catch (Exception e)
             {
                 response.IsSuccessful = false;
-                response.Message = $"Failed to create order number {orderToAdd.Id} placed by customer {orderToAdd.Customer.GivenName} {orderToAdd.Customer.Surname}. Stack trace: {e.StackTrace}";
+                response.Message = $"Failed to create order number {orderToAdd.Id} placed by customer {orderToAdd.CustomerId} {orderToAdd.CustomerId}. Stack trace: {e.StackTrace}";
             }
 
             return response;

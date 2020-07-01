@@ -42,19 +42,26 @@ namespace SparkDrums.Services.Customers
 
         public ServiceResponse<ServiceCustomers.Customer> CreateCustomer(ServiceCustomers.Customer customerToAdd)
         {
+            var now = DateTime.Now;
+
             var response = new ServiceResponse<ServiceCustomers.Customer>()
             {
-                Time = DateTime.Now,
+                Time = now,
                 Data = customerToAdd
             };
 
             try
             {
                 var entityCustomerToAdd = CustomerMapper.SerialiseCustomer(customerToAdd);
+                entityCustomerToAdd.CreatedOn = now;
+                entityCustomerToAdd.UpdatedOn = now;
+                entityCustomerToAdd.PrimaryAddress.CreatedOn = now;
+                entityCustomerToAdd.PrimaryAddress.UpdatedOn = now;
                 _customersWriter.AddCustomerToDb(entityCustomerToAdd);
+
+                response.Data = CustomerMapper.SerialiseCustomer(entityCustomerToAdd);
                 response.IsSuccessful = true;
                 response.Message = $"Successfully added {customerToAdd.GivenName} {customerToAdd.Surname}";
-
             }
             catch (Exception e)
             {
