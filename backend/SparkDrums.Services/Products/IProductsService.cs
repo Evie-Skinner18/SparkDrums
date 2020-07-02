@@ -1,5 +1,4 @@
-﻿using EntityProducts = SparkDrums.Data.Models.Products;
-using ServiceProducts = SparkDrums.Services.Models.Products;
+﻿using ServiceProducts = SparkDrums.Services.Models.Products;
 using System.Collections.Generic;
 
 namespace SparkDrums.Services.Products
@@ -8,14 +7,14 @@ namespace SparkDrums.Services.Products
     {
         IEnumerable<ServiceProducts.Product> GetAllProducts();
 
-        EntityProducts.Product GetProductById(int id);
+        ServiceProducts.Product GetProductById(int id);
 
-        ServiceResponse<EntityProducts.Product> CreateProduct(EntityProducts.Product productToAdd);
+        ServiceResponse<ServiceProducts.Product> CreateProduct(ServiceProducts.Product productToAdd);
 
-        ServiceResponse<EntityProducts.Product> DeleteProduct(int id);
+        ServiceResponse<ServiceProducts.Product> DeleteProduct(int id);
 
-        ServiceResponse<EntityProducts.Product> ArchiveProduct(int id);
+        ServiceResponse<ServiceProducts.Product> ArchiveProduct(int id);
 
-        void CreateProductInventoryRecord(EntityProducts.Product product);
+        void CreateProductInventoryRecord(ServiceProducts.Product product);
     }
 }

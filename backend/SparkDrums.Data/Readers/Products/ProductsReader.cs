@@ -27,5 +27,13 @@ namespace SparkDrums.Data.Readers.Products
                 .SingleOrDefault(p => p.Id == id);
             return productWithGivenId;
         }
+
+        public Product GetMostRecentlyAddedProductFromDb()
+        {
+            var mostRecentlyAddedProduct = _dbContext.Products
+                .OrderByDescending(p => p.CreatedOn)
+                .FirstOrDefault();
+            return mostRecentlyAddedProduct;
+        }
     }
 }

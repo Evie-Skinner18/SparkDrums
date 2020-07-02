@@ -9,6 +9,7 @@ using SparkDrums.Data.Readers.Products;
 using SparkDrums.Data.Readers.Inventories;
 using SparkDrums.Data.Writers.Inventories;
 using SparkDrums.Data.Readers.Customers;
+using System.Linq;
 
 namespace SparkDrums.Services.Orders
 {
@@ -46,7 +47,11 @@ namespace SparkDrums.Services.Orders
 
         public IEnumerable<ServiceOrders.SalesOrder> GetAllSalesOrders()
         {
-            throw new System.NotImplementedException();
+            var entityOrders = _ordersReader.GetAllSalesOrdersFromDb();
+            var serviceOrders = entityOrders
+                .Select(o => OrderMapper
+                .SerialiseSalesOrder(o));
+            return serviceOrders;
         }
 
         public ServiceOrders.SalesOrder GetSalesOrderById(int id)
@@ -57,6 +62,12 @@ namespace SparkDrums.Services.Orders
         public ServiceResponse<bool> PlaceOrder(ServiceOrders.SalesOrder order)
         {
             _logger.LogInformation($"Getting items from new order placed by customer {order.CustomerId}");
+
+            var boolResponse = new ServiceResponse<bool>()
+            {
+                Time = DateTime.Now
+            };
+
             foreach (var item in order.Items)
             {
                 var entityProductWithGivenId = _productsReader.GetProductFromDbById(item.Product.Id);
@@ -65,20 +76,24 @@ namespace SparkDrums.Services.Orders
 
                 // find the inventory record that matches given product id as opposed to find inventory record with given inventory record id. Like this we only need to inject
                 // product reader and inventoies writer no need for inventories reader aswell
-                _inventoriesWriter.UpdateQuantityAvailableInDb(item.Product.Id, -item.QuantityOrdered);
-                item.Product.UpdatedOn = DateTime.Now;
+                try
+                {
+                    _inventoriesWriter.UpdateQuantityAvailableInDb(item.Product.Id, -item.QuantityOrdered);
+                    item.Product.UpdatedOn = DateTime.Now;
+                }
+                catch (Exception e)
+                {
+                    boolResponse.Data = false;
+                    boolResponse.IsSuccessful = false;
+                    boolResponse.Message = $"Failed to update quanitity available in DB. stack trace: {e.StackTrace}";
+                }
             }
 
             _logger.LogInformation("Updated quantity available of each item in this order. Now creating sales order in DB...");
-            // error handling is happening in separate function so PlaceOrder() is cleaner I think
             var orderResponse = CreateSalesOrder(order);
-            var boolResponse = new ServiceResponse<bool>()
-            {
-                Time = DateTime.Now,
-                Data = orderResponse.IsSuccessful,
-                IsSuccessful = orderResponse.IsSuccessful,
-                Message = orderResponse.Message
-            };
+            boolResponse.Data = orderResponse.IsSuccessful;
+            boolResponse.IsSuccessful = orderResponse.IsSuccessful;
+            boolResponse.Message = $"Successfully placed order {order.Id}!";            
 
             return boolResponse;
         }

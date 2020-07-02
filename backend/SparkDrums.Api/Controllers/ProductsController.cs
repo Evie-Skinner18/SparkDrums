@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SparkDrums.Services.Products;
-using System.Collections.Generic;
-using System.Linq;
+using ServiceProducts = SparkDrums.Services.Models.Products;
 
 namespace SparkDrums.Api.Controllers
 {
@@ -24,6 +23,14 @@ namespace SparkDrums.Api.Controllers
             _logger.LogInformation("Getting all products...");
             var allProducts = _productsService.GetAllProducts();
             return Ok(allProducts);
+        }
+
+        [HttpPost("/api/products")]
+        public ActionResult CreateProduct([FromBody] ServiceProducts.Product product)
+        {
+            _logger.LogInformation($"Creating product {product.Name}...");
+            var productResponse = _productsService.CreateProduct(product);
+            return Ok(productResponse);
         }
 
         [HttpPatch("/api/products/{id}")]

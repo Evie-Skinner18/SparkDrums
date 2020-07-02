@@ -9,5 +9,7 @@ namespace SparkDrums.Data.Readers.Products
         IEnumerable<Product> GetAllProductsFromDb();
 
         Product GetProductFromDbById(int id);
+
+        Product GetMostRecentlyAddedProductFromDb();
     }
 }

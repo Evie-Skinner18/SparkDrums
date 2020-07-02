@@ -59,10 +59,11 @@ namespace SparkDrums.Services.Inventories
         public ServiceResponse<ServiceInventories.ProductInventory> UpdateQuantityAvailable(int productId, int adjustment)
         {
             var productInventory = _inventoriesReader.GetProductInventoryRecordFromDbByProductId(productId);
+            var now = DateTime.Now;
 
             var response = new ServiceResponse<ServiceInventories.ProductInventory>()
             {
-                Time = DateTime.Now
+                Time = now
             };
 
             try
@@ -71,6 +72,7 @@ namespace SparkDrums.Services.Inventories
 
                 try
                 {
+                    productInventory.UpdatedOn = now;
                     _inventoriesWriter.AddProductInventorySnapshotToDb(productInventory);
                 }
                 catch (Exception e)

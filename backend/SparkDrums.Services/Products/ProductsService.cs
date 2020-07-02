@@ -1,5 +1,4 @@
-﻿using EntityProducts = SparkDrums.Data.Models.Products;
-using EntityInventories = SparkDrums.Data.Models.Inventories;
+﻿using EntityInventories = SparkDrums.Data.Models.Inventories;
 using ServiceProducts = SparkDrums.Services.Models.Products;
 using SparkDrums.Data.Readers.Products;
 using SparkDrums.Data.Writers.Products;
@@ -38,53 +37,60 @@ namespace SparkDrums.Services.Products
             return serviceProducts;
         }
 
-        public EntityProducts.Product GetProductById(int id)
+        public ServiceProducts.Product GetProductById(int id)
         {
-            var productWithGivenId = _productsReader.GetProductFromDbById(id);
-            return productWithGivenId;
+            var entityProduct = _productsReader.GetProductFromDbById(id);
+            var serviceProduct = ProductMapper.SerialiseProduct(entityProduct);
+            return serviceProduct;
         }
 
         // these are quite repetitive. How can I improve? Uncle Bob would say separate your error handling from method's logic
-        public ServiceResponse<EntityProducts.Product> CreateProduct(EntityProducts.Product productToAdd)
+        public ServiceResponse<ServiceProducts.Product> CreateProduct(ServiceProducts.Product productToAdd)
         {
-            var response = new ServiceResponse<EntityProducts.Product>()
+            var now = DateTime.Now;
+            var response = new ServiceResponse<ServiceProducts.Product>()
             {
-                Data = productToAdd,
-                Time = DateTime.Now
+                Time = now
             };
        
             try
             {
+                var entityProduct = ProductMapper.SerialiseProduct(productToAdd);
+                entityProduct.CreatedOn = now;
+                entityProduct.UpdatedOn = now;
+                _productsWriter.AddProductToDb(entityProduct);                
                 CreateProductInventoryRecord(productToAdd);
-                _productsWriter.AddProductToDb(productToAdd);
 
                 response.IsSuccessful = true;
                 response.Message = ($"Successfully added {productToAdd.Name}");
+                response.Data = ProductMapper.SerialiseProduct(entityProduct);
             }
             catch (Exception e)
             {
                 response.IsSuccessful = false;
                 response.Message = ($"Could not add {productToAdd.Name}. Stack trace: {e.StackTrace}");
+                response.Data = productToAdd;
             }
 
             return response;
         }
 
-        public ServiceResponse<EntityProducts.Product> DeleteProduct(int id)
+        public ServiceResponse<ServiceProducts.Product> DeleteProduct(int id)
         {
-            var response = new ServiceResponse<EntityProducts.Product>()
+            var response = new ServiceResponse<ServiceProducts.Product>()
             {
                 Time = DateTime.Now
             };
 
             try
             {
-                var productToDelete = _productsReader.GetProductFromDbById(id);
-                _productsWriter.DeleteProductFromDb(productToDelete);
+                var entityProduct = _productsReader.GetProductFromDbById(id);
+                _productsWriter.DeleteProductFromDb(entityProduct);
+                var serviceProduct = ProductMapper.SerialiseProduct(entityProduct);
 
-                response.Data = productToDelete;
+                response.Data = serviceProduct;
                 response.IsSuccessful = true;
-                response.Message = ($"Successfully deleted {productToDelete.Name}");
+                response.Message = ($"Successfully deleted {serviceProduct.Name}");
             }
             catch (Exception e)
             {
@@ -95,20 +101,22 @@ namespace SparkDrums.Services.Products
             return response;
         }
 
-        public ServiceResponse<EntityProducts.Product> ArchiveProduct(int id)
+        public ServiceResponse<ServiceProducts.Product> ArchiveProduct(int id)
         {
-            var response = new ServiceResponse<EntityProducts.Product>()
+            var response = new ServiceResponse<ServiceProducts.Product>()
             {
                 Time = DateTime.Now
             };
 
             try
             {
-                var productToArchive = _productsReader.GetProductFromDbById(id);
-                _productsWriter.AddArchiveRecordToDb(productToArchive);
-                response.Data = productToArchive;
+                var entityProduct = _productsReader.GetProductFromDbById(id);
+                _productsWriter.AddArchiveRecordToDb(entityProduct);
+                var serviceProduct = ProductMapper.SerialiseProduct(entityProduct);
+
+                response.Data = serviceProduct;
                 response.IsSuccessful = true;
-                response.Message = ($"Successfully archived {productToArchive.Name}");
+                response.Message = ($"Successfully archived {serviceProduct.Name}");
             }
             catch (Exception e)
             {
@@ -119,21 +127,27 @@ namespace SparkDrums.Services.Products
             return response; 
         }
 
-        public void CreateProductInventoryRecord(EntityProducts.Product product)
+        public void CreateProductInventoryRecord(ServiceProducts.Product product)
         {
+            // there's no valid id we can use to retrieve by id, because it gets generated automatcially by DB when that product is added
+            var entityProduct = _productsReader.GetMostRecentlyAddedProductFromDb();
+            var now = DateTime.Now;
+
             try
             {
                 var productInventoryRecord = new EntityInventories.ProductInventory()
                 {
-                    Product = product,
+                    Product = entityProduct.Name == product.Name ? entityProduct : null,
                     QuantityAvailable = 0,
-                    IdealQuantity = 10
+                    IdealQuantity = 15,
+                    CreatedOn = now,
+                    UpdatedOn = now
                 };
                 _inventoriesWriter.AddProductInventoryRecordToDb(productInventoryRecord);
             }
             catch (Exception)
             {
-                throw new InvalidOperationException("Cannot add inventory record to a product that does not exist!");
+                throw new InvalidOperationException($"Failed to add inventory record for product {product.Name}. Most recently added entity product retreived was {entityProduct.Name}");
             }
         }
     }

@@ -22,6 +22,14 @@ namespace SparkDrums.Api.Controllers
             _customersService = customersService;
         }
 
+
+        [HttpGet("/api/orders")]
+        public ActionResult GetAllOrders()
+        {
+            var allOrders = _ordersService.GetAllSalesOrders();
+            return Ok(allOrders);
+        }
+
         [HttpPost("/api/placeorder")]
         public ActionResult PlaceOrder([FromBody] ServiceOrders.SalesOrder order)
         {
@@ -29,5 +37,14 @@ namespace SparkDrums.Api.Controllers
             var orderResponse = _ordersService.PlaceOrder(order);
             return Ok(orderResponse);
         }
+
+        [HttpPatch("/api/pay/{id}")]
+        public ActionResult MarkOrderAsPaid(int id)
+        {
+            _logger.LogInformation($"Marking order {id} as paid...");
+            var orderResponse = _ordersService.MarkOrderAsPaid(id);
+            return Ok(orderResponse);
+        }
+
     }
 }
