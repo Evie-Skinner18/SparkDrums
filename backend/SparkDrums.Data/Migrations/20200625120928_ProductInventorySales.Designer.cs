@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SparkDrums.Data;
@@ -9,9 +10,10 @@ using SparkDrums.Data;
 namespace SparkDrums.Data.Migrations
 {
     [DbContext(typeof(SparkDrumsDbContext))]
-    partial class SparkDrumsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200625120928_ProductInventorySales")]
+    partial class ProductInventorySales
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,7 +215,7 @@ namespace SparkDrums.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SparkDrums.Data.Models.Customers.Customer", b =>
+            modelBuilder.Entity("SparkDrums.Data.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +244,7 @@ namespace SparkDrums.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("SparkDrums.Data.Models.Customers.CustomerAddress", b =>
+            modelBuilder.Entity("SparkDrums.Data.Models.CustomerAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -288,58 +290,7 @@ namespace SparkDrums.Data.Migrations
                     b.ToTable("CustomerAddresses");
                 });
 
-            modelBuilder.Entity("SparkDrums.Data.Models.Orders.SalesOrder", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsPaid")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("SalesOrders");
-                });
-
-            modelBuilder.Entity("SparkDrums.Data.Models.Orders.SalesOrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("QuantityOrdered")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("SalesOrderId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("SalesOrderId");
-
-                    b.ToTable("SalesOrderItems");
-                });
-
-            modelBuilder.Entity("SparkDrums.Data.Models.Products.Product", b =>
+            modelBuilder.Entity("SparkDrums.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -380,7 +331,7 @@ namespace SparkDrums.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("SparkDrums.Data.Models.Products.ProductInventory", b =>
+            modelBuilder.Entity("SparkDrums.Data.Models.ProductInventory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -406,10 +357,10 @@ namespace SparkDrums.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductInventories");
+                    b.ToTable("ProductInventoriess");
                 });
 
-            modelBuilder.Entity("SparkDrums.Data.Models.Products.ProductInventorySnapshot", b =>
+            modelBuilder.Entity("SparkDrums.Data.Models.ProductInventorySnapshot", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -430,6 +381,57 @@ namespace SparkDrums.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductInventorySnapshots");
+                });
+
+            modelBuilder.Entity("SparkDrums.Data.Models.SalesOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("SalesOrders");
+                });
+
+            modelBuilder.Entity("SparkDrums.Data.Models.SalesOrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QuantityOrdered")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SalesOrderId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SalesOrderId");
+
+                    b.ToTable("SalesOrderItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -483,43 +485,43 @@ namespace SparkDrums.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SparkDrums.Data.Models.Customers.Customer", b =>
+            modelBuilder.Entity("SparkDrums.Data.Models.Customer", b =>
                 {
-                    b.HasOne("SparkDrums.Data.Models.Customers.CustomerAddress", "PrimaryAddress")
+                    b.HasOne("SparkDrums.Data.Models.CustomerAddress", "PrimaryAddress")
                         .WithMany()
                         .HasForeignKey("PrimaryAddressId");
                 });
 
-            modelBuilder.Entity("SparkDrums.Data.Models.Orders.SalesOrder", b =>
+            modelBuilder.Entity("SparkDrums.Data.Models.ProductInventory", b =>
                 {
-                    b.HasOne("SparkDrums.Data.Models.Customers.Customer", "Customer")
+                    b.HasOne("SparkDrums.Data.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("SparkDrums.Data.Models.ProductInventorySnapshot", b =>
+                {
+                    b.HasOne("SparkDrums.Data.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("SparkDrums.Data.Models.SalesOrder", b =>
+                {
+                    b.HasOne("SparkDrums.Data.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId");
                 });
 
-            modelBuilder.Entity("SparkDrums.Data.Models.Orders.SalesOrderItem", b =>
+            modelBuilder.Entity("SparkDrums.Data.Models.SalesOrderItem", b =>
                 {
-                    b.HasOne("SparkDrums.Data.Models.Products.Product", "Product")
+                    b.HasOne("SparkDrums.Data.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("SparkDrums.Data.Models.Orders.SalesOrder", null)
+                    b.HasOne("SparkDrums.Data.Models.SalesOrder", null)
                         .WithMany("Items")
                         .HasForeignKey("SalesOrderId");
-                });
-
-            modelBuilder.Entity("SparkDrums.Data.Models.Products.ProductInventory", b =>
-                {
-                    b.HasOne("SparkDrums.Data.Models.Products.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("SparkDrums.Data.Models.Products.ProductInventorySnapshot", b =>
-                {
-                    b.HasOne("SparkDrums.Data.Models.Products.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,8 +1,8 @@
 using NUnit.Framework;
 
-namespace SparkDrums.Tests
+namespace SparkDrums.Tests.Products
 {
-    public class Tests
+    public class ProductsServiceTests
     {
         [SetUp]
         public void Setup()

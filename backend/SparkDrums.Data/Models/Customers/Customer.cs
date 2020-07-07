@@ -1,15 +1,7 @@
 ﻿using System;
 
-namespace SparkDrums.Data.Models
-{
-    /*
-     * Entity models:
-     * general product class with name e.g 'DW Collector Series Drumkit', 'Vic Firth American Classic sticks'.
-     * product will have prop called category or something that will tell you e.g this is drumkit/percussion/accessory
-     * 
-     * 
-     */
-
+namespace SparkDrums.Data.Models.Customers
+{   
     public class Customer
     {
         public int Id { get; set; }
