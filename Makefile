@@ -16,7 +16,9 @@ api:
 	cd ./backend/SparkDrums.Api && dotnet run && cd ../../
 
 
-client: cd ./frontend && npm run serve && cd ../
+client: 
+	cd ./frontend && npm run serve && cd ../
 
 
-test: cd ./backend && dotnet test && cd ../
+test: 
+	cd ./backend && dotnet test && cd ../
