@@ -3,9 +3,7 @@
     <div class="app-menu">
       <side-menu />
     </div>
-    <div class="app-content">
-
-    </div>
+    <div class="app-content"></div>
     <router-view />
   </div>
 </template>

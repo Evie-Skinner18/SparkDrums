@@ -1,17 +1,21 @@
 <template>
   <div class="side-menu-container">
-    <img id="logo" alt-text="The Spark Drums logo" src="@/assets/logo.png" />
+    <router-link to="/">
+      <img id="logo" alt-text="The Spark Drums logo" src="@/assets/logo.png" />
+    </router-link>
     <h3>Management Portal</h3>
+    <spark-drums-button id="inventoryButton" :link="'inventory'">Inventory</spark-drums-button>
   </div>
 </template>
 
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import SparkDrumsButton from "./SparkDrumsButton.vue";
 
 @Component({
   name: "SideMenu",
-  components: {}
+  components: { SparkDrumsButton }
 })
 export default class SideMenu extends Vue {}
 </script>
