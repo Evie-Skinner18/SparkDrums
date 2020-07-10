@@ -5,6 +5,16 @@
     </router-link>
     <h3>Management Portal</h3>
     <spark-drums-button id="inventoryButton" :link="'inventory'">Inventory</spark-drums-button>
+    <spark-drums-button id="customersButton" :link="'customers'">Manage Customers</spark-drums-button>
+    <!-- in his API Wes has separate controller method that looks like this
+    
+      [HttpPost("/api/invoice")]
+        public ActionResult GenerateNewOrder([FromBody] InvoiceModel invoice)
+
+        to generate an invoice. This front end is for admin user not customer.
+     -->
+    <spark-drums-button id="invoiceButton" :link="'invoice/new'">Create Invoice</spark-drums-button>
+    <spark-drums-button id="ordersButton" :link="'orders'">Orders</spark-drums-button>
   </div>
 </template>
 
@@ -21,7 +31,7 @@ export default class SideMenu extends Vue {}
 </script>
 
 <style scoped lang="scss">
-  @import "@/scss/global.scss";
+@import "@/scss/global.scss";
 
   .side-menu-container {
       background-color: $spark-drums-red;

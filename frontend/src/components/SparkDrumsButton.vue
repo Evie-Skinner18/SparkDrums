@@ -1,7 +1,8 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-    <div class="button-link">
-        <button @click="visitRoute">
+    <div>
+                                                            <!-- the full-width class will be applied when isFullWidth prop is true -->
+        <button @click="visitRoute" class="button-link" v-bind:class="['spark-drums-button', { 'full-width': isFullWidth }]">
             <!-- when SparkDrumsButton renders, whatever's between its opening and closing tags will render in place of this slot -->
             <slot></slot>
         </button>
@@ -22,6 +23,9 @@ export default class SparkDrumsButton extends Vue {
   @Prop(String)
   link?: string;
 
+  @Prop({ required: false, type: Boolean, default: false })
+  isFullWidth: boolean;
+
   visitRoute() {
       console.log(this.link);
       this.$router.push({ name: `${this.link}`});
@@ -30,6 +34,24 @@ export default class SparkDrumsButton extends Vue {
 </script>
 
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
+@import "@/scss/global.scss";
 
+
+    .button-link {
+      background: $spark-drums-background;
+      color: $ebony-wood;
+      font-size: 85%;
+      box-shadow: none;
+      padding: 2%;
+      margin-top: 5%;
+      //margin-bottom: 5%;
+      width: 100%;
+      height: 100%;
+    } 
+
+    .full-width {
+        display: block;
+        width: 100%;
+    }
 </style>

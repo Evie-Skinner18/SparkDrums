@@ -3,8 +3,9 @@
     <div class="app-menu">
       <side-menu />
     </div>
-    <div class="app-content"></div>
-    <router-view />
+    <div class="app-content">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -28,18 +29,28 @@ export default class App extends Vue {}
   text-align: center;
   color: $spark-drums-navy;
   background-color: $spark-drums-background;
+  display: flex;
+
+  .app-menu {
+    position: fixed;
+  }
+
+  .app-content {
+    padding: 1.2rem;
+    width: 90%;
+    // use $menu-width to avoid overlapping with SideMenu component
+    margin: 1rem auto 1rem $menu-width;
+    text-align: left;
+  }
 }
 
-#nav {
-  padding: 30px;
+// we're displaying all of this on an index.html page so margin 0 gets rid of any margin left over from that
+* {
+  margin: 0;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: $spark-drums-red;
-    }
-  }
+a {
+  text-decoration: none;
+  color: $spark-drums-blue;
 }
 </style>

@@ -14,6 +14,21 @@ const routes: Array<RouteConfig> = [
     path: "/inventory",
     name: "inventory",
     component: Inventory
+  },
+  {
+    path: "/customers",
+    name: "customers",
+    // component: Customers
+  },
+  {
+    path: "/invoice/new",
+    name: "invoice/new",
+    // component: Invoice
+  },
+  {
+    path: "/orders",
+    name: "orders",
+    // component: Orders
   }
 ];
 
