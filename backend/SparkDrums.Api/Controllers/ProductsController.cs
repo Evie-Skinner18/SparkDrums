@@ -40,7 +40,5 @@ namespace SparkDrums.Api.Controllers
             var archiveResponse = _productsService.ArchiveProduct(id);
             return Ok(archiveResponse);
         }
-
-
     }
 }

@@ -1,32 +1,56 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="app-menu">
+      <side-menu />
     </div>
-    <router-view />
+    <div class="app-content">
+      <router-view />
+    </div>
   </div>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import SideMenu from "@/components/SideMenu.vue";
+@Component({
+  name: "App",
+  components: { SideMenu }
+})
+export default class App extends Vue {}
+</script>
+
 <style lang="scss">
+@import "@/scss/global.scss";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $spark-drums-navy;
+  background-color: $spark-drums-background;
+  display: flex;
+
+  .app-menu {
+    position: fixed;
+  }
+
+  .app-content {
+    padding: 1.2rem;
+    width: 90%;
+    // use $menu-width to avoid overlapping with SideMenu component
+    margin: 1rem auto 1rem $menu-width;
+    text-align: left;
+  }
 }
 
-#nav {
-  padding: 30px;
+// we're displaying all of this on an index.html page so margin 0 gets rid of any margin left over from that
+* {
+  margin: 0;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+a {
+  text-decoration: none;
+  color: $spark-drums-blue;
 }
 </style>
