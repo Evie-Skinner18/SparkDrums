@@ -45,10 +45,23 @@ export default class SparkDrumsButton extends Vue {
       box-shadow: none;
       padding: 2%;
       margin-top: 5%;
-      //margin-bottom: 5%;
       width: 100%;
       height: 100%;
-    } 
+
+        &:hover {
+            background: $light-wood;
+            transition: background-color 1s;
+        }
+        &:disabled {
+            background: $steel;
+        }
+        &:active {
+            background: $spark-drums-red;
+        }
+        &:focus {
+            border: $spark-drums-navy;
+        }
+    }
 
     .full-width {
         display: block;
