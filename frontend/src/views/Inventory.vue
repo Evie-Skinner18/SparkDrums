@@ -2,6 +2,14 @@
   <div class="inventory-container">
     <h1 class="inventory-title">Inventory Dashboard</h1>
     <hr />
+    <div class="inventory-actions">
+      <spark-drums-button @click.native="showNewProductModal" id="add-new-product-button">
+        Add new product
+      </spark-drums-button>
+      <spark-drums-button @click.native="showReceiveShipmentModal" id="receive-shipment-button">
+        Receive new shipment
+      </spark-drums-button>
+    </div>
     <table id="inventory-table" class="table">
       <tr>
         <th>Item</th>
@@ -18,15 +26,21 @@
         <td>X</td>
       </tr>
     </table>
+    <new-product-modal v-if="isNewProductVisible" />
+    <shipment-modal v-if="isShipmentVisible" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import SparkDrumsButton from "../components/SparkDrumsButton.vue";
 import { IProductInventory } from "../types/Product";
 
-@Component({ name: "Inventory" })
+@Component({ name: "Inventory", components: { SparkDrumsButton } })
 export default class Inventory extends Vue {
+
+  isNewProductVisible = false;
+  isShipmentVisible = false;
   inventoryItems: IProductInventory[] = [];
 
   created(): void {
@@ -37,6 +51,14 @@ export default class Inventory extends Vue {
     const isTaxableString = isTaxable ? "Yes" : "No";
     return isTaxableString;
   }
+
+  // private showNewProductModal(): void {
+
+  // }
+
+  // private showShipmentModal(): void {
+
+  // }
 
   private setupProductInventoryItems(): void {
       this.inventoryItems = [
