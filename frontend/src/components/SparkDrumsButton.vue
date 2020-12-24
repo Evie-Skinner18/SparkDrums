@@ -1,6 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
 <template>
-    <div>
+    <div class="button-container">
                                                             <!-- the full-width class will be applied when isFullWidth prop is true -->
         <button @click="visitRoute" class="button-link" v-bind:class="['spark-drums-button', { 'full-width': isFullWidth }]">
             <!-- when SparkDrumsButton renders, whatever's between its opening and closing tags will render in place of this slot -->
@@ -33,38 +33,39 @@ export default class SparkDrumsButton extends Vue {
 }
 </script>
 
-
 <style lang="scss" scoped>
 @import "@/scss/global.scss";
 
+.button-container {
+  margin-top: 2%;
+}
 
-    .button-link {
-      background: $spark-drums-background;
-      color: $ebony-wood;
-      font-size: 85%;
-      box-shadow: none;
-      padding: 2%;
-      margin-top: 5%;
-      width: 100%;
-      height: 100%;
+.button-link {
+    background: $spark-drums-background;
+    color: $ebony-wood;
+    font-size: 85%;
+    box-shadow: none;
+    padding: 3%;
+    width: 100%;
+    height: 100%;
 
-        &:hover {
-            background: $light-wood;
-            transition: background-color 1s;
-        }
-        &:disabled {
-            background: $steel;
-        }
-        &:active {
-            background: $spark-drums-red;
-        }
-        &:focus {
-            border: $spark-drums-navy;
-        }
+    &:hover {
+        background: $light-wood;
+        transition: background-color 1s;
     }
-
-    .full-width {
-        display: block;
-        width: 100%;
+    &:disabled {
+        background: $steel;
     }
+    &:active {
+        background: $spark-drums-red;
+    }
+    &:focus {
+        border: $spark-drums-navy;
+    }
+}
+
+.full-width {
+  display: block;
+  width: 100%;
+}
 </style>
